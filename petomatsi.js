@@ -1,6 +1,8 @@
 
 var messages = {
 	start : "Press OK to start",
+	endLevel : "Level cleared. Prepare for next level",
+	win : "You cleared all the levels! Grats!",
 	die : function (score) {
 		return "You died! Score: "+score;
 	}
@@ -28,8 +30,7 @@ var util = {
     }
 }
 
-function LevelManager(nomsPerLevel,levelArray) {
-  this.nomsPerLevel = nomsPerLevel;
+function LevelManager(levelArray) {
   this.levelArray = levelArray;
   
   var currentIndex = 0;
@@ -38,7 +39,7 @@ function LevelManager(nomsPerLevel,levelArray) {
   this.setNextLevel = function () {
 	   if (this.isLastLevel())
 	   {
-		   throw new Exception("Current level is last one");
+		   throw new Error("Current level is last one");
 	   } else {
 	       currentIndex++;
 	   }
@@ -54,16 +55,24 @@ function LevelManager(nomsPerLevel,levelArray) {
 }
 
 
-function PetoMatsi(canvasId) {
+function PetoMatsi(canvasId,params) {
 
 var self = this;
 var colors = {0:"blue",
 			  1:"red",
 			  2:"yellow",
 			  3:"white"};
-var tbl = util.baseLevel(80,50);
+
+var levelmanager = new LevelManager(params.levels);
+var tbl = levelmanager.getCurrentLevel();
 var mato = new Mato(5,5);
 var score = 0;
+var maxScore = params.maxScore || 9;
+if (!params.levels)
+{
+	throw new Error("No levels for game!");
+}
+
 var height = tbl.length;
 var width = tbl[0].length;
 var size = 10;
@@ -254,15 +263,34 @@ var id= setInterval(function(){
 	} else {
 	if (mato.gotNom())
 	{
-	   mato.grow();
-	   score+=10;
-	   nom = randomNom();
-	   tbl[nom.y][nom.x] = 3
-	   draw(3,nom.x,nom.y);
+	   if (isLevelCleared())
+	   {
+	     if (isLastLevel())
+	     {
+	       alert(messages.win); 
+		   clearInterval(id);
+		 } else {
+		   alert(messages.endLevel);
+		 }
+	   } else {
+	     mato.grow();
+	     score+=1;
+	     nom = randomNom();
+	     tbl[nom.y][nom.x] = 3
+	     draw(3,nom.x,nom.y);
+	   }
 	}
 	updateMato();
 	}
 },50);
+}
+
+function isLastLevel() {
+	   return levelmanager.isLastLevel();
+}
+
+function isLevelCleared() {
+	   return score == maxScore;
 }
 
 

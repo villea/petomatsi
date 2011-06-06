@@ -10,7 +10,8 @@ Invalid browser.
 <script type="text/javascript">
 
 window.onload = function (){
-   var game = new PetoMatsi("game");
+   var levels = [util.baseLevel(80,50)];
+   var game = new PetoMatsi("game",{levels : levels});
    game.run();
 };
 
