@@ -68,6 +68,24 @@ var height = tbl.length;
 var width = tbl[0].length;
 var size = 10;
 var ctx = createCanvas("game",width*size,height*size);
+initControls();
+
+
+function initControls() {
+document.onkeydown=function(e){
+ var e=window.event || e
+ switch (e.keyCode)
+ {
+ case 37: mato.left();break;
+ case 38: mato.up();break;
+ case 39: mato.right();break;
+ case 40: mato.down();break;
+ 
+ }
+}
+
+}
+
 
 function createCanvas(canvasId,width,height) {
 	var c = document.getElementById(canvasId);
@@ -214,20 +232,6 @@ function updateNom(){
 
 
 this.run = function (){
-
-document.onkeydown=function(e){
- var e=window.event || e
- switch (e.keyCode)
- {
- case 37: mato.left();break;
- case 38: mato.up();break;
- case 39: mato.right();break;
- case 40: mato.down();break;
- 
- }
-}
-
-
 alert(messages.start);
 
 nom = randomNom();
@@ -243,8 +247,6 @@ for (w = 0;  w < width;w++ )
 
 
 var id= setInterval(function(){
-	
-	
 	if (mato.isDead())
 	{
 		alert(messages.die(score));
