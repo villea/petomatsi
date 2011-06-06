@@ -131,6 +131,14 @@ function Mato(x,y) {
 		this.size+=this.growAmount;
 	}
 
+    this.isDead = function () {
+		return tbl[mato.startY][mato.startX] == 1 || tbl[mato.startY][mato.startX] == 2;
+	}
+
+    this.gotNom = function () {
+		return tbl[mato.startY][mato.startX] == 3;
+    }
+
 	function _changeDir(nextDir,notAllowed,currentDir){
 		if (currentDir == notAllowed)
 		{
@@ -175,6 +183,12 @@ function draw(color,x,y) {
 	ctx.fillRect(x*size,y*size,size,size);
 }
 
+function updateNom(){
+    nom = randomNom();
+    tbl[nom.y][nom.x] = 3
+}
+
+
 
 this.run = function (){
 
@@ -208,12 +222,12 @@ for (w = 0;  w < width;w++ )
 var id= setInterval(function(){
 	
 	
-	if (tbl[mato.startY][mato.startX] == 1 || tbl[mato.startY][mato.startX] == 2)
+	if (mato.isDead())
 	{
 		alert(messages.die(score));
 		clearInterval(id);
 	} else {
-	if (tbl[mato.startY][mato.startX] == 3)
+	if (mato.gotNom())
 	{
 	   mato.grow();
 	   score+=10;
