@@ -29,9 +29,6 @@ var util = {
 }
 
 
-
-
-
 function PetoMatsi(canvasId) {
 
 var self = this;
@@ -169,6 +166,7 @@ function Namu(x,y){
 }
 
 function randomNom(){
+	//TODO: This will suck when worm gets too long
 	do
 	{
 	var y = Math.floor(height*Math.random());
