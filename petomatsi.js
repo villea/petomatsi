@@ -30,6 +30,8 @@ var util = {
     }
 }
 
+
+
 function LevelManager(levelArray) {
   this.levelArray = levelArray;
   
@@ -69,6 +71,7 @@ var tbl = levelmanager.getCurrentLevel();
 var mato = new Mato(5,5);
 var score = 0;
 var maxScore = params.maxScore || 9;
+var speed = params.speed || 50;
 if (!params.levels)
 {
 	throw new Error("No levels for game!");
@@ -292,7 +295,7 @@ var id= setInterval(function(){
 	}
 	updateMato();
 	}
-},50);
+},speed);
 }
 
 function isLastLevel() {
