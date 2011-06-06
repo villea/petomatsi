@@ -75,9 +75,11 @@ if (!params.levels)
 
 var height = tbl.length;
 var width = tbl[0].length;
-var size = 10;
-var ctx = createCanvas(canvasId,width*size,height*size);
+var blockSize = params.blockSize || 10;
+
+var ctx = createCanvas(canvasId,width*blockSize,height*blockSize);
 var nom = null;
+
 
 updateNom();
 initControls();
@@ -105,7 +107,7 @@ function reset() {
    width = tbl[0].length;
    mato = new Mato(5,5);
    updateNom();
-   ctx = createCanvas(canvasId,width*size,height*size);
+   ctx = createCanvas(canvasId,width*blockSize,height*blockSize);
    drawLevel();
 }
 
@@ -243,7 +245,7 @@ function randomNom(){
 
 function draw(color,x,y) {
 	ctx.fillStyle = colors[color];
-	ctx.fillRect(x*size,y*size,size,size);
+	ctx.fillRect(x*blockSize,y*blockSize,blockSize,blockSize);
 }
 
 
