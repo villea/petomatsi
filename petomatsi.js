@@ -77,9 +77,9 @@ var height = tbl.length;
 var width = tbl[0].length;
 var size = 10;
 var ctx = createCanvas(canvasId,width*size,height*size);
-var nom = randomNom();
-tbl[nom.y][nom.x] = 3
+var nom = null;
 
+updateNom();
 initControls();
 drawLevel();
 
@@ -104,8 +104,7 @@ function reset() {
    height = tbl.length;
    width = tbl[0].length;
    mato = new Mato(5,5);
-   var nom = randomNom();
-   tbl[nom.y][nom.x] = 3
+   updateNom();
    ctx = createCanvas(canvasId,width*size,height*size);
    drawLevel();
 }
@@ -247,10 +246,7 @@ function draw(color,x,y) {
 	ctx.fillRect(x*size,y*size,size,size);
 }
 
-function updateNom(){
-    nom = randomNom();
-    tbl[nom.y][nom.x] = 3
-}
+
 
 function drawLevel() {
 	for (h = 0; h < height ; h++)
@@ -308,6 +304,10 @@ function isLevelCleared() {
 	   return score == maxScore;
 }
 
+function updateNom(){
+    nom = randomNom();
+    tbl[nom.y][nom.x] = 3
+}
 
 function updateMato() {
 	tbl[mato.endY][mato.endX] = 0;
