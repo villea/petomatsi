@@ -3,9 +3,7 @@ var messages = {
 	start : "Press OK to start",
 	endLevel : "Level cleared. Prepare for next level",
 	win : "You cleared all the levels! Grats!",
-	die : function (score) {
-		return "You died! Score: "+score;
-	}
+	die : "You died ! :("
 
 }
 
@@ -273,7 +271,7 @@ alert(messages.start);
 var id= setInterval(function(){
 	if (mato.isDead())
 	{
-		alert(messages.die(score));
+		alert(messages.die);
 		clearInterval(id);
 	} else {
 	if (mato.gotNom())
