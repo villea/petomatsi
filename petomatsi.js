@@ -30,6 +30,12 @@ var levelutil = {
     }
 }
 
+function required(param,message){
+	if (!param || param.length == 0)
+	{
+		throw new Error(message);
+	}
+}
 
 
 function LevelManager(levelArray) {
@@ -59,6 +65,8 @@ function LevelManager(levelArray) {
 
 function PetoMatsi(canvasId,params) {
 
+required(params.levels,"No levels for the game!");
+
 var self = this;
 var customColors = params.colors || {};
 var colors = {0:customColors.empty || "blue",
@@ -72,10 +80,6 @@ var mato = new Mato(5,5);
 var score = 0;
 var maxScore = params.maxScore || 9;
 var speed = params.speed || 50;
-if (!params.levels)
-{
-	throw new Error("No levels for game!");
-}
 
 var height = tbl.length;
 var width = tbl[0].length;
