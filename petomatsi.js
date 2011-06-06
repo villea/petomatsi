@@ -65,6 +65,7 @@ function Mato(x,y) {
 	this.endX = x;
 	this.endY = y;
     this.size = 5;
+	this.growAmount = 3;
     this.body = [[x,y]];
 	this.dlock = true;
 	this.move = function(){	
@@ -110,10 +111,6 @@ function Mato(x,y) {
 		}
 	}
 
-	this.print = function (){
-		alert(this.startX+" "+this.startY+" | "+this.endY+" "+this.endX);
-	}
-
 	this.hitself = function (){
 		if (this.body.length == 1)
 		{
@@ -131,7 +128,7 @@ function Mato(x,y) {
 	}
 
 	this.grow = function (){
-		this.size+=3;
+		this.size+=this.growAmount;
 	}
 
 	function _changeDir(nextDir,notAllowed,currentDir){
@@ -173,20 +170,10 @@ function randomNom(){
 	return new Namu(x,y);
 }
 
-
-
-
-
 function draw(color,x,y) {
 	ctx.fillStyle = colors[color];
 	ctx.fillRect(x*size,y*size,size,size);
 }
-
-
-
-
-
-
 
 
 this.run = function (){
@@ -207,7 +194,6 @@ document.onkeydown=function(e){
 alert(messages.start);
 
 nom = randomNom();
-
 tbl[nom.y][nom.x] = 3
 
 for (h = 0; h < height ; h++)
@@ -244,5 +230,7 @@ var id= setInterval(function(){
 	}
 },50);
 }
+
+
 
 }
