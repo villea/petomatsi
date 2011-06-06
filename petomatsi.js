@@ -58,10 +58,11 @@ function LevelManager(levelArray) {
 function PetoMatsi(canvasId,params) {
 
 var self = this;
-var colors = {0:"blue",
-			  1:"red",
-			  2:"yellow",
-			  3:"white"};
+var customColors = params.colors || {};
+var colors = {0:customColors.empty || "blue",
+			  1:customColors.border || "red",
+			  2:customColors.worm || "yellow",
+			  3:customColors.nom || "white"};
 
 var levelmanager = new LevelManager(params.levels);
 var tbl = levelmanager.getCurrentLevel();
@@ -262,10 +263,6 @@ function drawLevel() {
 
 this.run = function (){
 alert(messages.start);
-
-
-
-
 var id= setInterval(function(){
 	if (mato.isDead())
 	{

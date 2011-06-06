@@ -13,7 +13,12 @@ window.onload = function (){
    var levels = [util.baseLevel(80,50),util.baseLevel(50,50)];
    var game = new PetoMatsi("game",{levels : levels,
 									maxScore: 3,
-									blockSize: 10});
+									blockSize: 10,
+									colors : {
+										worm : "yellow",
+										nom : "white"
+									}
+									});
    game.run();
 };
 
