@@ -235,16 +235,18 @@ var id= setInterval(function(){
 	   tbl[nom.y][nom.x] = 3
 	   draw(3,nom.x,nom.y);
 	}
-	
-	tbl[mato.endY][mato.endX] = 0;
-	draw(0,mato.endX,mato.endY);
-	tbl[mato.startY][mato.startX] = 2;
-	draw(2,mato.startX,mato.startY);
-	mato.move();
+	updateMato();
 	}
 },50);
 }
 
 
+function updateMato() {
+	tbl[mato.endY][mato.endX] = 0;
+	draw(0,mato.endX,mato.endY);
+	tbl[mato.startY][mato.startX] = 2;
+	draw(2,mato.startX,mato.startY);
+	mato.move();
+}
 
 }
