@@ -8,27 +8,9 @@ var messages = {
 }
 
 
-function LevelCreator(width,height){
-	this.width = width;
-	this.height = height;
-	this.level = [[]];
-
-]
-
-
-
-function PetoMatsi(canvasId) {
-
-
-var colors = {0:"blue",
-			  1:"red",
-			  2:"yellow",
-			  3:"white"};
-
-
-function createDefaultFrame(width,height){
+var util = {
+    baseLevel : function(width,height){
 	var tb =[[]];
-	
 	for (h = 0;h < height ; h++ )
 	{
      tb[h] = new Array();
@@ -43,17 +25,35 @@ function createDefaultFrame(width,height){
 	 }
 	}
 	return tb;
+    }
 }
 
-var tbl = createDefaultFrame(80,50);
+
+
+
+
+function PetoMatsi(canvasId) {
+
+var self = this;
+var colors = {0:"blue",
+			  1:"red",
+			  2:"yellow",
+			  3:"white"};
+var tbl = util.baseLevel(80,50);
+var mato = new Mato(5,5);
+var score = 0;
+var height = tbl.length;
+var width = tbl[0].length;
+var size = 10;
+var ctx = createCanvas("game",width*size,height*size);
 
 function createCanvas(canvasId,width,height) {
-	var example = document.getElementById(canvasId);
-    example.width = width;
-	example.height = height;
-	var context = example.getContext('2d');
+	var c = document.getElementById(canvasId);
+    c.width = width;
+	c.height = height;
+	var context = c.getContext('2d');
     context.fillStyle = "rgb(0,0,0)";
-    context.fillRect(0, 0, example.width, example.height);
+    context.fillRect(0, 0, c.width, c.height);
 	return context;
 }
 
@@ -174,11 +174,6 @@ function randomNom(){
 }
 
 
-height = tbl.length;
-width = tbl[0].length;
-size = 10;
-ctx = createCanvas("game",width*size,height*size);
-
 
 
 
@@ -189,17 +184,12 @@ function draw(color,x,y) {
 
 
 
-for (h = 0; h < height ; h++)
-{
-for (w = 0;  w < width;w++ )
-{
-	draw(tbl[h][w],w,h);
-}
-}
 
 
 
-var mato = new Mato(5,5);
+
+
+this.run = function (){
 
 document.onkeydown=function(e){
  var e=window.event || e
@@ -214,15 +204,19 @@ document.onkeydown=function(e){
 }
 
 
-var score = 0;
-
-this.run = function (){
-
 alert(messages.start);
 
 nom = randomNom();
 
 tbl[nom.y][nom.x] = 3
+
+for (h = 0; h < height ; h++)
+{
+for (w = 0;  w < width;w++ )
+{
+	draw(tbl[h][w],w,h);
+}
+}
 
 
 var id= setInterval(function(){

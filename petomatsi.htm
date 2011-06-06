@@ -1,15 +1,18 @@
+<!DOCTYPE html>
 <html>
-<head></head>
+<head>
+<script src="petomatsi.js"></script> 
+</head>
 <body>
 <canvas id="game" tabindex="1">
-Invalid browser. Maybe IE?
+Invalid browser.
 </canvas>
 <script type="text/javascript">
 
-window.onload(function (){
+window.onload = function (){
    var game = new PetoMatsi("game");
-   game.start();
-});
+   game.run();
+};
 
 </script>
 </body>
