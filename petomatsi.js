@@ -74,7 +74,7 @@ var colors = {0:customColors.empty || "blue",
 
 var levelmanager = new LevelManager(params.levels);
 var tbl = levelmanager.getCurrentLevel();
-var mato = new Mato(5,5);
+var mato = new Mato(1,1);
 var score = 0;
 var maxScore = params.maxScore || 9;
 var speed = params.speed || 50;
@@ -111,7 +111,7 @@ function reset() {
    tbl = levelmanager.getCurrentLevel();
    height = tbl.length;
    width = tbl[0].length;
-   mato = new Mato(5,5);
+   mato = new Mato(1,1);
    updateNom();
    ctx = createCanvas(canvasId,width*blockSize,height*blockSize);
    drawLevel();
