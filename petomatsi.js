@@ -76,9 +76,12 @@ if (!params.levels)
 var height = tbl.length;
 var width = tbl[0].length;
 var size = 10;
-var ctx = createCanvas("game",width*size,height*size);
-initControls();
+var ctx = createCanvas(canvasId,width*size,height*size);
+var nom = randomNom();
+tbl[nom.y][nom.x] = 3
 
+initControls();
+drawLevel();
 
 function initControls() {
 document.onkeydown=function(e){
@@ -95,6 +98,17 @@ document.onkeydown=function(e){
 
 }
 
+function reset() {
+   score = 0;
+   tbl = levelmanager.getCurrentLevel();
+   height = tbl.length;
+   width = tbl[0].length;
+   mato = new Mato(5,5);
+   var nom = randomNom();
+   tbl[nom.y][nom.x] = 3
+   ctx = createCanvas(canvasId,width*size,height*size);
+   drawLevel();
+}
 
 function createCanvas(canvasId,width,height) {
 	var c = document.getElementById(canvasId);
@@ -238,21 +252,20 @@ function updateNom(){
     tbl[nom.y][nom.x] = 3
 }
 
-
+function drawLevel() {
+	for (h = 0; h < height ; h++)
+    {
+      for (w = 0;  w < width;w++ )
+      {
+	    draw(tbl[h][w],w,h);
+      } 
+    }
+}
 
 this.run = function (){
 alert(messages.start);
 
-nom = randomNom();
-tbl[nom.y][nom.x] = 3
 
-for (h = 0; h < height ; h++)
-{
-for (w = 0;  w < width;w++ )
-{
-	draw(tbl[h][w],w,h);
-}
-}
 
 
 var id= setInterval(function(){
@@ -271,6 +284,8 @@ var id= setInterval(function(){
 		   clearInterval(id);
 		 } else {
 		   alert(messages.endLevel);
+		   levelmanager.setNextLevel();
+		   reset();
 		 }
 	   } else {
 	     mato.grow();
