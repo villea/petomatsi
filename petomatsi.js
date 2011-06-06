@@ -10,7 +10,7 @@ var messages = {
 }
 
 
-var util = {
+var levelutil = {
     baseLevel : function(width,height){
 	var tb =[[]];
 	for (h = 0;h < height ; h++ )
