@@ -233,7 +233,7 @@ function Mato(x,y) {
 			
 }
 
-function Namu(x,y){
+function Nom(x,y){
 	this.x = x;
 	this.y = y;
 }
@@ -246,7 +246,7 @@ function randomNom(){
 	var x = Math.floor(width*Math.random());
 	}
 	while (tbl[y][x] != 0);
-	return new Namu(x,y);
+	return new Nom(x,y);
 }
 
 function draw(color,x,y) {

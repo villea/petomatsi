@@ -10,9 +10,10 @@ Invalid browser.
 <script type="text/javascript">
 
 window.onload = function (){
+   //mock levels just for testing
    var levels = [levelutil.baseLevel(80,50),levelutil.baseLevel(50,50)];
    var game = new PetoMatsi("game",{levels : levels,
-									maxScore: 3,
+									maxScore: 9,
 									blockSize: 10,
 									speed: 50,
 									colors : {
