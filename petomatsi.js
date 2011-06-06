@@ -28,6 +28,31 @@ var util = {
     }
 }
 
+function LevelManager(nomsPerLevel,levelArray) {
+  this.nomsPerLevel = nomsPerLevel;
+  this.levelArray = levelArray;
+  
+  var currentIndex = 0;
+  var lastLevelIndex = levelArray.length - 1;
+
+  this.setNextLevel = function () {
+	   if (this.isLastLevel())
+	   {
+		   throw new Exception("Current level is last one");
+	   } else {
+	       currentIndex++;
+	   }
+  }
+
+  this.getCurrentLevel = function () {
+	  return this.levelArray[currentIndex];
+  }
+
+  this.isLastLevel = function () {
+     return currentIndex == lastLevelIndex;
+  }
+}
+
 
 function PetoMatsi(canvasId) {
 
