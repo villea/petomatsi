@@ -69,7 +69,7 @@ var self = this;
 var customColors = params.colors || {};
 var colors = {0:customColors.empty || "blue",
 			  1:customColors.border || "red",
-			  2:customColors.worm || "yellow",
+			  2:customColors.mato || "yellow",
 			  3:customColors.nom || "white"};
 
 var levelmanager = new LevelManager(params.levels);
