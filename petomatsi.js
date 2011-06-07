@@ -1,38 +1,38 @@
 
 var messages = {
-	start : "Press OK to start",
-	endLevel : "Level cleared. Prepare for next level",
-	win : "You cleared all the levels! Grats!",
-	die : "You died ! :("
+    start : "Press OK to start",
+    endLevel : "Level cleared. Prepare for next level",
+    win : "You cleared all the levels! Grats!",
+    die : "You died ! :("
 
 }
 
 
 var levelutil = {
     baseLevel : function(width,height){
-	var tb =[[]];
-	for (h = 0;h < height ; h++ )
-	{
+    var tb =[[]];
+    for (h = 0;h < height ; h++ )
+    {
      tb[h] = new Array();
-	 for (w = 0; w < width; w++){
+     for (w = 0; w < width; w++){
 
-		if (h == 0 || h == (height - 1) || w == 0 || w == (width -1))
-		{
-			tb[h][w] = 1;
-		} else {
-			tb[h][w] = 0;
-		}
-	 }
-	}
-	return tb;
+        if (h == 0 || h == (height - 1) || w == 0 || w == (width -1))
+        {
+            tb[h][w] = 1;
+        } else {
+            tb[h][w] = 0;
+        }
+     }
+    }
+    return tb;
     }
 }
 
 function required(param,message){
-	if (!param || param.length == 0)
-	{
-		throw new Error(message);
-	}
+    if (!param || param.length == 0)
+    {
+        throw new Error(message);
+    }
 }
 
 
@@ -43,16 +43,16 @@ function LevelManager(levelArray) {
   var lastLevelIndex = levelArray.length - 1;
 
   this.setNextLevel = function () {
-	   if (this.isLastLevel())
-	   {
-		   throw new Error("Current level is last one");
-	   } else {
-	       currentIndex++;
-	   }
+       if (this.isLastLevel())
+       {
+           throw new Error("Current level is last one");
+       } else {
+           currentIndex++;
+       }
   }
 
   this.getCurrentLevel = function () {
-	  return this.levelArray[currentIndex];
+      return this.levelArray[currentIndex];
   }
 
   this.isLastLevel = function () {
@@ -68,9 +68,9 @@ required(params.levels,"No levels for the game!");
 var self = this;
 var customColors = params.colors || {};
 var colors = {0:customColors.empty || "blue",
-			  1:customColors.border || "red",
-			  2:customColors.mato || "yellow",
-			  3:customColors.nom || "white"};
+              1:customColors.border || "red",
+              2:customColors.mato || "yellow",
+              3:customColors.nom || "white"};
 
 var levelmanager = new LevelManager(params.levels);
 var tbl = levelmanager.getCurrentLevel();
@@ -118,150 +118,150 @@ function reset() {
 }
 
 function createCanvas(canvasId,width,height) {
-	var c = document.getElementById(canvasId);
+    var c = document.getElementById(canvasId);
     c.width = width;
-	c.height = height;
-	var context = c.getContext('2d');
+    c.height = height;
+    var context = c.getContext('2d');
     context.fillStyle = "rgb(0,0,0)";
     context.fillRect(0, 0, c.width, c.height);
-	return context;
+    return context;
 }
 
 
 function Mato(x,y) {
-	this.direction = "e";
-	this.startX = x;
-	this.startY = y;
-	this.endX = x;
-	this.endY = y;
+    this.direction = "e";
+    this.startX = x;
+    this.startY = y;
+    this.endX = x;
+    this.endY = y;
     this.size = 5;
-	this.growAmount = 3;
+    this.growAmount = 3;
     this.body = [[x,y]];
-	this.dlock = true;
-	this.move = function(){	
-		if (this.body.length > this.size)
-		{
-			this.body.shift();
-		}
+    this.dlock = true;
+    this.move = function(){ 
+        if (this.body.length > this.size)
+        {
+            this.body.shift();
+        }
 
-		var nsd = m(this.direction);
-		this.startX += nsd[0];
-		this.startY += nsd[1];
-		
-		this.body.push([this.startX,this.startY]);
-		
-		var ned = this.body[0];
-		this.endX = ned[0];
-		this.endY = ned[1];
-		this.dlock = false;
-	}
+        var nsd = m(this.direction);
+        this.startX += nsd[0];
+        this.startY += nsd[1];
+        
+        this.body.push([this.startX,this.startY]);
+        
+        var ned = this.body[0];
+        this.endX = ned[0];
+        this.endY = ned[1];
+        this.dlock = false;
+    }
 
-	this.down = function(){
-		this.changeDir("s","n");
-	}
+    this.down = function(){
+        this.changeDir("s","n");
+    }
 
-	this.up = function (){
-		this.changeDir("n","s");
-	}
+    this.up = function (){
+        this.changeDir("n","s");
+    }
 
-	this.left = function (){
-		this.changeDir("w","e");
-	}
+    this.left = function (){
+        this.changeDir("w","e");
+    }
 
-	this.right = function (){
-		this.changeDir("e","w");
-	}
+    this.right = function (){
+        this.changeDir("e","w");
+    }
 
 
     this.changeDir = function(next,notallowed){
-		if(!this.dlock)
-		{
-		this.direction = _changeDir(next,notallowed,this.direction);
-		this.dlock = true;
-		}
-	}
-
-	this.hitself = function (){
-		if (this.body.length == 1)
-		{
-			return false;
-		} else {
-		for (i = 0; i < this.body.length-2 ; i++)
-		{
-			if(this.startX == this.body[i][0] &&
-			   this.startY == this.body[i][1]){
-					return true;
-			   }
-		}
-		return false;
-		}
-	}
-
-	this.grow = function (){
-		this.size+=this.growAmount;
-	}
-
-    this.isDead = function () {
-		return tbl[mato.startY][mato.startX] == 1 || tbl[mato.startY][mato.startX] == 2;
-	}
-
-    this.gotNom = function () {
-		return tbl[mato.startY][mato.startX] == 3;
+        if(!this.dlock)
+        {
+        this.direction = _changeDir(next,notallowed,this.direction);
+        this.dlock = true;
+        }
     }
 
-	function _changeDir(nextDir,notAllowed,currentDir){
-		if (currentDir == notAllowed)
-		{
-		   return currentDir;
-		} else {
-			return nextDir;
-		}
-	}
+    this.hitself = function (){
+        if (this.body.length == 1)
+        {
+            return false;
+        } else {
+        for (i = 0; i < this.body.length-2 ; i++)
+        {
+            if(this.startX == this.body[i][0] &&
+               this.startY == this.body[i][1]){
+                    return true;
+               }
+        }
+        return false;
+        }
+    }
 
-	function m(dir){
-			var x = 0;
-			var y = 0;
-			switch(dir){
-			case "e": x++;break;
-			case "n": y--;break;
-			case "w": x--;break;
-			case "s": y++;break;
-			default: throw new Error("Invalid direction");break;
-			}
-			return [x,y];
-	}
-			
+    this.grow = function (){
+        this.size+=this.growAmount;
+    }
+
+    this.isDead = function () {
+        return tbl[mato.startY][mato.startX] == 1 || tbl[mato.startY][mato.startX] == 2;
+    }
+
+    this.gotNom = function () {
+        return tbl[mato.startY][mato.startX] == 3;
+    }
+
+    function _changeDir(nextDir,notAllowed,currentDir){
+        if (currentDir == notAllowed)
+        {
+           return currentDir;
+        } else {
+            return nextDir;
+        }
+    }
+
+    function m(dir){
+            var x = 0;
+            var y = 0;
+            switch(dir){
+            case "e": x++;break;
+            case "n": y--;break;
+            case "w": x--;break;
+            case "s": y++;break;
+            default: throw new Error("Invalid direction");break;
+            }
+            return [x,y];
+    }
+            
 }
 
 function Nom(x,y){
-	this.x = x;
-	this.y = y;
+    this.x = x;
+    this.y = y;
 }
 
 function randomNom(){
-	//TODO: This will suck when worm gets too long
-	do
-	{
-	var y = Math.floor(height*Math.random());
-	var x = Math.floor(width*Math.random());
-	}
-	while (tbl[y][x] != 0);
-	return new Nom(x,y);
+    //TODO: This will suck when worm gets too long
+    do
+    {
+    var y = Math.floor(height*Math.random());
+    var x = Math.floor(width*Math.random());
+    }
+    while (tbl[y][x] != 0);
+    return new Nom(x,y);
 }
 
 function draw(color,x,y) {
-	ctx.fillStyle = colors[color];
-	ctx.fillRect(x*blockSize,y*blockSize,blockSize,blockSize);
+    ctx.fillStyle = colors[color];
+    ctx.fillRect(x*blockSize,y*blockSize,blockSize,blockSize);
 }
 
 
 
 function drawLevel() {
-	for (h = 0; h < height ; h++)
+    for (h = 0; h < height ; h++)
     {
       for (w = 0;  w < width;w++ )
       {
-	    draw(tbl[h][w],w,h);
+        draw(tbl[h][w],w,h);
       } 
     }
 }
@@ -269,43 +269,43 @@ function drawLevel() {
 this.run = function (){
 alert(messages.start);
 var id= setInterval(function(){
-	if (mato.isDead())
-	{
-		alert(messages.die);
-		clearInterval(id);
-	} else {
-	if (mato.gotNom())
-	{
-	   if (isLevelCleared())
-	   {
-	     if (isLastLevel())
-	     {
-	       alert(messages.win); 
-		   clearInterval(id);
-		 } else {
-		   alert(messages.endLevel);
-		   levelmanager.setNextLevel();
-		   reset();
-		 }
-	   } else {
-	     mato.grow();
-	     score+=1;
-	     nom = randomNom();
-	     tbl[nom.y][nom.x] = 3
-	     draw(3,nom.x,nom.y);
-	   }
-	}
-	updateMato();
-	}
+    if (mato.isDead())
+    {
+        alert(messages.die);
+        clearInterval(id);
+    } else {
+    if (mato.gotNom())
+    {
+       if (isLevelCleared())
+       {
+         if (isLastLevel())
+         {
+           alert(messages.win); 
+           clearInterval(id);
+         } else {
+           alert(messages.endLevel);
+           levelmanager.setNextLevel();
+           reset();
+         }
+       } else {
+         mato.grow();
+         score+=1;
+         nom = randomNom();
+         tbl[nom.y][nom.x] = 3
+         draw(3,nom.x,nom.y);
+       }
+    }
+    updateMato();
+    }
 },speed);
 }
 
 function isLastLevel() {
-	   return levelmanager.isLastLevel();
+       return levelmanager.isLastLevel();
 }
 
 function isLevelCleared() {
-	   return score == maxScore;
+       return score == maxScore;
 }
 
 function updateNom(){
@@ -314,11 +314,11 @@ function updateNom(){
 }
 
 function updateMato() {
-	tbl[mato.endY][mato.endX] = 0;
-	draw(0,mato.endX,mato.endY);
-	tbl[mato.startY][mato.startX] = 2;
-	draw(2,mato.startX,mato.startY);
-	mato.move();
+    tbl[mato.endY][mato.endX] = 0;
+    draw(0,mato.endX,mato.endY);
+    tbl[mato.startY][mato.startX] = 2;
+    draw(2,mato.startX,mato.startY);
+    mato.move();
 }
 
 }

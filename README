@@ -18,8 +18,8 @@ and see the results with yourself
 3. Parameters
 
 levels : Array of Arrays of numbers 1 and 0 where 
-	 1 defines the wall and 0 empty space.
-	 NOTE! Required
+         1 defines the wall and 0 empty space.
+         NOTE! Required
 
 maxScore : numbers of 'noms' per level. default is 9
 
@@ -29,10 +29,10 @@ speed : game speed in ms. default is 50
 
 colors : object of color values for different game elements.
          game elements are (name, default value) ->
-	          border : "red",
-	          empty : "blue"
-		  mato : "yellow",
-		  nom : "white"
+                  border : "red",
+                  empty : "blue"
+                  mato : "yellow",
+                  nom : "white"
 
 
 
