@@ -1,0 +1,39 @@
+
+PetoMatsi
+---
+
+1.Introduction
+
+PetoMatsi is simple "do-your-own-nibbles" - toolkit made
+with javascript and html5. It might not be too useful
+but atleast it's a little bit fun and it was fun to make :)
+
+2. Tutorial
+
+Check example petomatsi.htm to get started.
+All the parameterized values are shown in
+the example. You can play with the parameters
+and see the results with yourself
+
+3. Parameters
+
+levels : Array of Arrays of numbers 1 and 0 where 
+	 1 defines the wall and 0 empty space.
+	 NOTE! Required
+
+maxScore : numbers of 'noms' per level. default is 9
+
+blockSize : size of the game element block. default is 10
+
+speed : game speed in ms. default is 50
+
+colors : object of color values for different game elements.
+         game elements are (name, default value) ->
+	          border : "red",
+	          empty : "blue"
+		  mato : "yellow",
+		  nom : "white"
+
+
+
+
