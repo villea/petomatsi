@@ -145,7 +145,7 @@ function Mato(x,y) {
             this.body.shift();
         }
 
-        var nsd = m(this.direction);
+        var nsd = getNextXY(this.direction);
         this.startX += nsd[0];
         this.startY += nsd[1];
         
@@ -219,7 +219,7 @@ function Mato(x,y) {
         }
     }
 
-    function m(dir){
+    function getNextXY(dir){
             var x = 0;
             var y = 0;
             switch(dir){
