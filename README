@@ -17,8 +17,18 @@ and see the results with yourself
 
 3. Parameters
 
-levels : Array of Arrays of numbers 1 and 0 where 
-         1 defines the wall and 0 empty space.
+levels : Array of Array of Arrays of numbers 1 and 0 where 
+         1 marks the wall and 0 empty space.
+         example:
+         var levels = [
+                       [[1,1,1,1,1,1],
+                        [1,0,0,0,0,1],
+                        [1,0,0,0,0,1],
+                        [1,0,0,0,0,1],
+                        [1,0,0,0,0,1],
+                        [1,1,1,1,1,1]
+                       ]
+                      ]
          NOTE! Required
 
 maxScore : numbers of 'noms' per level. default is 9
