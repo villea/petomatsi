@@ -65,7 +65,6 @@ function PetoMatsi(canvasId,params) {
 
 required(params.levels,"No levels for the game!");
 
-var self = this;
 var customColors = params.colors || {};
 var colors = {0:customColors.empty || "blue",
               1:customColors.border || "red",
