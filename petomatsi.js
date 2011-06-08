@@ -136,7 +136,9 @@ function Mato(x,y) {
     this.size = 5;
     this.growAmount = 3;
     this.body = [[x,y]];
-    this.dlock = true;
+    //direction lock ensures that directions changes only
+	//synchronized with game speed
+	this.dlock = true;
     this.move = function(){ 
         if (this.body.length > this.size)
         {
