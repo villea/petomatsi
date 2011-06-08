@@ -128,7 +128,7 @@ function createCanvas(canvasId,width,height) {
 
 
 function Mato(x,y) {
-    this.direction = "e";
+    this.direction = "r";
     this.startX = x;
     this.startY = y;
     this.endX = x;
@@ -156,26 +156,26 @@ function Mato(x,y) {
     }
 
     this.down = function(){
-        this.changeDir("s","n");
+        this.changeDir("d","u");
     }
 
     this.up = function (){
-        this.changeDir("n","s");
+        this.changeDir("u","d");
     }
 
     this.left = function (){
-        this.changeDir("w","e");
+        this.changeDir("l","r");
     }
 
     this.right = function (){
-        this.changeDir("e","w");
+        this.changeDir("r","l");
     }
 
 
     this.changeDir = function(next,notallowed){
         if(!this.dlock)
         {
-        this.direction = _changeDir(next,notallowed,this.direction);
+        this.direction = getAllowedDir(next,notallowed,this.direction);
         this.dlock = true;
         }
     }
@@ -208,7 +208,7 @@ function Mato(x,y) {
         return tbl[mato.startY][mato.startX] == 3;
     }
 
-    function _changeDir(nextDir,notAllowed,currentDir){
+    function getAllowedDir(nextDir,notAllowed,currentDir){
         if (currentDir == notAllowed)
         {
            return currentDir;
@@ -221,10 +221,10 @@ function Mato(x,y) {
             var x = 0;
             var y = 0;
             switch(dir){
-            case "e": x++;break;
-            case "n": y--;break;
-            case "w": x--;break;
-            case "s": y++;break;
+            case "r": x++;break;
+            case "u": y--;break;
+            case "l": x--;break;
+            case "d": y++;break;
             default: throw new Error("Invalid direction");break;
             }
             return [x,y];
