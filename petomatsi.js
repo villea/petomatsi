@@ -72,14 +72,14 @@ var colors = {0:customColors.empty || "blue",
               3:customColors.nom || "white"};
 
 var levelmanager = new LevelManager(params.levels);
-var tbl = levelmanager.getCurrentLevel();
+var level = levelmanager.getCurrentLevel();
 var mato = new Mato(1,1);
 var score = 0;
 var maxScore = params.maxScore || 9;
 var speed = params.speed || 50;
 
-var height = tbl.length;
-var width = tbl[0].length;
+var height = level.length;
+var width = level[0].length;
 var blockSize = params.blockSize || 10;
 
 var ctx = createCanvas(canvasId,width*blockSize,height*blockSize);
@@ -107,9 +107,9 @@ document.onkeydown=function(e){
 
 function reset() {
    score = 0;
-   tbl = levelmanager.getCurrentLevel();
-   height = tbl.length;
-   width = tbl[0].length;
+   level = levelmanager.getCurrentLevel();
+   height = level.length;
+   width = level[0].length;
    mato = new Mato(1,1);
    updateNom();
    ctx = createCanvas(canvasId,width*blockSize,height*blockSize);
@@ -203,11 +203,11 @@ function Mato(x,y) {
     }
 
     this.isDead = function () {
-        return tbl[mato.startY][mato.startX] == 1 || tbl[mato.startY][mato.startX] == 2;
+        return level[mato.startY][mato.startX] == 1 || level[mato.startY][mato.startX] == 2;
     }
 
     this.gotNom = function () {
-        return tbl[mato.startY][mato.startX] == 3;
+        return level[mato.startY][mato.startX] == 3;
     }
 
     function getAllowedDir(nextDir,notAllowed,currentDir){
@@ -246,7 +246,7 @@ function randomNom(){
     var y = Math.floor(height*Math.random());
     var x = Math.floor(width*Math.random());
     }
-    while (tbl[y][x] != 0);
+    while (level[y][x] != 0);
     return new Nom(x,y);
 }
 
@@ -262,7 +262,7 @@ function drawLevel() {
     {
       for (w = 0;  w < width;w++ )
       {
-        draw(tbl[h][w],w,h);
+        draw(level[h][w],w,h);
       } 
     }
 }
@@ -292,7 +292,7 @@ var id= setInterval(function(){
          mato.grow();
          score+=1;
          nom = randomNom();
-         tbl[nom.y][nom.x] = 3
+         level[nom.y][nom.x] = 3
          draw(3,nom.x,nom.y);
        }
     }
@@ -311,13 +311,13 @@ function isLevelCleared() {
 
 function updateNom(){
     nom = randomNom();
-    tbl[nom.y][nom.x] = 3
+    level[nom.y][nom.x] = 3
 }
 
 function updateMato() {
-    tbl[mato.endY][mato.endX] = 0;
+    level[mato.endY][mato.endX] = 0;
     draw(0,mato.endX,mato.endY);
-    tbl[mato.startY][mato.startX] = 2;
+    level[mato.startY][mato.startX] = 2;
     draw(2,mato.startX,mato.startY);
     mato.move();
 }
